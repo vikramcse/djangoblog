@@ -1,0 +1,11 @@
+<div>
+  {% if post.published_date %}
+    <div>
+      {{post.published_date}}
+    </div>
+  {% endif %}
+  <h1>{{post.title}}</h1>
+  <p>
+    {{post.text | linebreaks}}
+  </p>
+</div>

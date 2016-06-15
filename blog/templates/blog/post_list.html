@@ -2,7 +2,7 @@
   {% for p in posts %}
     <div>
       <p>published: {{p.published_date}}</p>
-      <h1><a href="#">{{p.title}}</a></h1>
+      <h1><a href="{% url 'post_detail' pk=p.pk %}">{{p.title}}</a></h1>
       <p>{{p.text | linebreaks}}</p>
     </div>
   {% endfor %}
