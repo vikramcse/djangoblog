@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import PostForm
+import json
+from django.template import RequestContext
 
+from .forms import PostForm
 from .models import Post
 
 def post_list(request):
@@ -33,6 +35,23 @@ def post_detail(request, pk):
 
 def log_in(request):
     return render(request, 'blog/login.html')
+
+def dummy(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now())
+    data = []
+    for p in posts:
+        d = {
+            'title': str(p.title),
+            'author': str(p.author),
+            'text': str(p.text),
+            'created_date': str(p.created_date),
+            'published_date': str(p.published_date),
+        }
+        data.append(d)
+
+    return render_to_response('blog/dummy.html',
+                          {'data': data},
+                          context_instance=RequestContext(request))
 
 def log_out(request):
     logout(request)

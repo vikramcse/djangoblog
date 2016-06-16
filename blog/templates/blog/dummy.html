@@ -1,0 +1,21 @@
+<div id="display">
+
+</div>
+
+<script>
+  var data = {{data | safe }}
+  var list = document.createElement('ul');
+  var items = []
+  data.forEach(function(e) {
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(e.title));
+    items.push(entry);
+  });
+
+  items.forEach(function(i) {
+    list.appendChild(i);
+  });
+
+  var div = document.getElementById('display');
+  div.appendChild(list);
+</script>
